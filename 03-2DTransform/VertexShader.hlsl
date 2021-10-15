@@ -1,4 +1,4 @@
-cbuffer cb2DTransform : register(b0) { // 常にスロット「0」を使う
+cbuffer cbTransform : register(b0) { // 常にスロット「0」を使う
 	matrix Transform;
 };
 

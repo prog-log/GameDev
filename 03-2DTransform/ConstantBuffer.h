@@ -1,12 +1,12 @@
 #pragma once
 
-struct Cb2DTransform
+struct CbTransform
 {
-	DirectX::XMFLOAT4X4	Transform;
+	XMFLOAT4X4	Transform;
 };
 
-struct Cb2DTransformSet
+struct CbTransformSet
 {
-	Cb2DTransform	Data;
+	CbTransform	Data;
 	ID3D11Buffer*	pBuffer = nullptr;
 };

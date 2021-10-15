@@ -3,9 +3,15 @@
 
 Triangle::Triangle()
 {
-	Vertices[0] = { 0.f, 0.5f, 0.f };
-	Vertices[1] = { 0.5f, -0.5f, 0.f };
-	Vertices[2] = { -0.5f, -0.5f, 0.f };
+	//Vertices[0] = { 0.f, 0.5f, 0.f };
+	//Vertices[1] = { 0.5f, -0.5f, 0.f };
+	//Vertices[2] = { -0.5f, -0.5f, 0.f };
+
+	// √3
+	auto sqrt3 = sqrtf(3);
+	Vertices[0] = { 0.f, sqrt3 / 3.f, 0.f };
+	Vertices[1] = { 0.5f, -sqrt3 / 6.f, 0.f };
+	Vertices[2] = { -0.5f, -sqrt3 / 6.f, 0.f };
 }
 
 Triangle::~Triangle()
@@ -41,6 +47,8 @@ void Triangle::DestroyVertexBuffer()
 
 void Triangle::Draw(Renderer& renderer)
 {
+	updateTransform();
+
 	setupTransform(renderer);
 
 	auto pDeviceContext = renderer.GetDeviceContext();
@@ -50,17 +58,52 @@ void Triangle::Draw(Renderer& renderer)
 	pDeviceContext->Draw(VERTEX_NUM, 0);
 }
 
+void Triangle::updateTransform()
+{
+	// 平行移動
+	//translateX_ += 0.0001f;
+	//if (translateX_ >= 1.f) translateX_ = -1.f;
+	//translateY_ += 0.0001f;
+	//if (translateY_ >= 1.f) translateY_ = -1.f;
+	translateX_ = 0.5f;
+
+	// 回転
+	//angle_ += XM_PI / 60000.f;
+	angle_ = XM_PI / 2.f;
+
+	// スケール
+	//scale_ += 0.0001f;
+	//if (scale_ >= 2.0f) scale_ = 0.5f;
+	scale_ = 2.f;
+}
+
 void Triangle::setupTransform(Renderer& renderer)
 {
 	// WorldMatrixを定数バッファに設定
 
-	auto mtx = DirectX::XMMatrixTranslation(0.5f, 0.5f, 0);
-	//auto mtx = DirectX::XMMatrixRotationZ(3.14f / 4.f);
-	auto& cb = renderer.GetRenderParam().Cb2DTransformSet;
-	auto pDeviceContext = renderer.GetDeviceContext();
-	DirectX::XMStoreFloat4x4(&cb.Data.Transform, XMMatrixTranspose(mtx));
+	auto& cb = renderer.GetRenderParam().CbTransformSet;
+
+	auto mtxS = XMMatrixScaling(scale_, scale_, 1.f);
+
+	//auto mtxR = XMMatrixRotationX(angle_);
+	//auto mtxR = XMMatrixRotationY(angle_);
+	auto mtxR = XMMatrixRotationZ(angle_);
+
+	auto mtxT = XMMatrixTranslation(translateX_, translateY_, 0);
+
+	//auto mtx = XMMatrixIdentity();
+
+	// 左から変換が適用される
+	//auto mtx = mtxT * mtxS;
+	//auto mtx = mtxS * mtxT;
+
+	//auto mtx = mtxT * mtxR;
+	auto mtx = mtxR * mtxT;
+
+	XMStoreFloat4x4(&cb.Data.Transform, XMMatrixTranspose(mtx));
 	//DirectX::XMStoreFloat4x4(&cb.Data.Transform, translate);
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	auto pDeviceContext = renderer.GetDeviceContext();
 	// CBufferにひもづくハードウェアリソースマップ取得（ロックして取得）
 	HRESULT hr = pDeviceContext->Map(
 		cb.pBuffer,

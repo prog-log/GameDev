@@ -13,5 +13,12 @@ struct Triangle
 	void Draw(Renderer& renderer);
 
 private:
+	void updateTransform();
 	void setupTransform(Renderer& renderer);
+
+private:
+	float translateX_ = 0.f;
+	float translateY_ = 0.f;
+	float angle_ = 0.f;
+	float scale_ = 1.f;
 };

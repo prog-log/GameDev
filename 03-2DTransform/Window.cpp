@@ -4,7 +4,7 @@
 Window::Window()
 	: sizeWindow_()
 {
-	sizeWindow_.cx = 640;
+	sizeWindow_.cx = 480;
 	sizeWindow_.cy = 480;
 }
 
@@ -25,7 +25,7 @@ bool Window::Initialize(HINSTANCE hInst)
 	wc_.hCursor			= LoadCursor(NULL, IDC_ARROW);
 	wc_.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
 	wc_.lpszMenuName	= NULL;
-	wc_.lpszClassName	= L"DrawTriangle";
+	wc_.lpszClassName	= L"2DTransform";
 
 	if (!RegisterClass(&wc_)) {
 		return false;
@@ -39,7 +39,7 @@ bool Window::Initialize(HINSTANCE hInst)
 	rect.bottom	= sizeWindow_.cy;
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
-	hWindow_ = CreateWindow(wc_.lpszClassName, _T("DrawTriangle"),
+	hWindow_ = CreateWindow(wc_.lpszClassName, _T("2DTransform"),
 			WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT, CW_USEDEFAULT,
 			rect.right - rect.left, rect.bottom - rect.top,

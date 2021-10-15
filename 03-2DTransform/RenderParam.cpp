@@ -3,15 +3,15 @@
 
 bool RenderParam::Initialize(Renderer& renderer)
 {
-    auto result = initConstantBuffer(renderer);
-    if (result == false) return false;
+	auto result = initConstantBuffer(renderer);
+	if (result == false) return false;
 
-    return true;
+	return true;
 }
 
 void RenderParam::Terminate(Renderer& renderer)
 {
-	DX_SAFE_RELEASE(Cb2DTransformSet.pBuffer);
+	DX_SAFE_RELEASE(CbTransformSet.pBuffer);
 }
 
 bool RenderParam::initConstantBuffer(Renderer& renderer)
@@ -25,8 +25,8 @@ bool RenderParam::initConstantBuffer(Renderer& renderer)
 	cBufferDesc.StructureByteStride = 0;
 
 	// 定数バッファ①の作成
-	cBufferDesc.ByteWidth = sizeof(Cb2DTransform);	// バッファ・サイズ
-	auto hr = renderer.GetDevice()->CreateBuffer(&cBufferDesc, NULL, &Cb2DTransformSet.pBuffer);
+	cBufferDesc.ByteWidth = sizeof(CbTransform);	// バッファ・サイズ
+	auto hr = renderer.GetDevice()->CreateBuffer(&cBufferDesc, NULL, &CbTransformSet.pBuffer);
 	if (FAILED(hr)) {
 		// DXTRACE_ERR(L"InitDirect3D g_pD3DDevice->CreateBuffer", hr);
 		return false;

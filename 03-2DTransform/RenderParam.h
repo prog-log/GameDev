@@ -3,7 +3,7 @@
 
 struct RenderParam
 {
-	Cb2DTransformSet	Cb2DTransformSet;
+	CbTransformSet	CbTransformSet;
 
 	bool Initialize(Renderer& renderer);
 	void Terminate(Renderer& renderer);
