@@ -45,6 +45,8 @@ private:
 	ID3D11RenderTargetView*	pRenderTargetView_ = nullptr;
 	//! ビューポート
 	D3D11_VIEWPORT			viewPort_[1];
+	//! ブレンド・ステート・オブジェクト
+	ID3D11BlendState*		pBlendState_ = nullptr;
 
 	UINT	backBufferNum_ = 3;
 	UINT	screenWidth_ = 0;

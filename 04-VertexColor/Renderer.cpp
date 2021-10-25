@@ -51,6 +51,7 @@ void Renderer::Terminate()
 		pSwapChain_->SetFullscreenState(FALSE, NULL);
 
 	DX_SAFE_RELEASE(pRenderTargetView_);
+	DX_SAFE_RELEASE(pBlendState_);
 	DX_SAFE_RELEASE(pSwapChain_);
 
 	DX_SAFE_RELEASE(pImmediateContext_);
@@ -64,6 +65,10 @@ void Renderer::Draw()
 	if (!pImmediateContext_ || !pRenderTargetView_) return;
 
 	pImmediateContext_->OMSetRenderTargets(1, &pRenderTargetView_, nullptr);
+
+	// OMにブレンドステートオブジェクトを設定
+	FLOAT BlendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
+	pImmediateContext_->OMSetBlendState(pBlendState_, BlendFactor, 0xffffffff);
 
 	float color[] = { 0.f, 0.f, 0.f, 0.f };
 	pImmediateContext_->ClearRenderTargetView(pRenderTargetView_, color);
@@ -120,7 +125,7 @@ bool Renderer::CompileShader(const WCHAR* vsPath, const WCHAR* psPath, Shader& o
 	ID3D11InputLayout* pInputLayout = nullptr;
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		//{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 12, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	hr = pDevice->CreateInputLayout(
 		layout,
@@ -238,6 +243,26 @@ bool Renderer::initBackBuffer()
 		//TRACE("InitBackBuffer g_pD3DDevice->CreateRenderTargetView(%0x08x)\n", hr);  // 失敗
 		return false;
 	}
+
+	// ブレンド・ステート・オブジェクトを、RenderTarget0へ書き込むのみの単純設定で設定
+	D3D11_BLEND_DESC BlendState;
+	ZeroMemory(&BlendState, sizeof(D3D11_BLEND_DESC));
+	BlendState.AlphaToCoverageEnable = FALSE;
+	BlendState.IndependentBlendEnable = FALSE;
+	BlendState.RenderTarget[0].BlendEnable = TRUE;
+	BlendState.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	BlendState.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	BlendState.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	BlendState.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	BlendState.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	BlendState.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	BlendState.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	hr = pD3DDevice_->CreateBlendState(&BlendState, &pBlendState_);
+	if (FAILED(hr)) {
+		//TRACE(L"InitDirect3D g_pD3DDevice->CreateBlendState", hr);
+		return false;
+	}
+
 
 	// ビューポートの設定
 	viewPort_[0].TopLeftX = 0.0f;    // ビューポート領域の左上X座標。

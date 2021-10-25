@@ -9,9 +9,10 @@ Triangle::Triangle()
 	Vertices[1] = { 0.5f, -sqrt3 / 6.f, 0.f };
 	Vertices[2] = { -0.5f, -sqrt3 / 6.f, 0.f };
 
-	//Vertices[0].Color = { 1.f, 0.f, 0.f };
-	//Vertices[1].Color = { 0.f, 1.f, 0.f };
-	//Vertices[2].Color = { 0.f, 0.f, 1.f };
+	constexpr float ALPHA = 0.3f;
+	Vertices[0].Color = { 1.f, 0.f, 0.f, ALPHA };
+	Vertices[1].Color = { 0.f, 1.f, 0.f, ALPHA };
+	Vertices[2].Color = { 0.f, 0.f, 1.f, ALPHA };
 }
 
 Triangle::~Triangle()
@@ -83,22 +84,22 @@ void Triangle::setupTransform(Renderer& renderer)
 
 	auto& cb = renderer.GetRenderParam().CbTransformSet;
 
-	auto mtxS = XMMatrixScaling(scale_, scale_, 1.f);
+	//auto mtxS = XMMatrixScaling(scale_, scale_, 1.f);
 
 	//auto mtxR = XMMatrixRotationX(angle_);
 	//auto mtxR = XMMatrixRotationY(angle_);
-	auto mtxR = XMMatrixRotationZ(angle_);
+	//auto mtxR = XMMatrixRotationZ(angle_);
 
-	auto mtxT = XMMatrixTranslation(translateX_, translateY_, 0);
+	//auto mtxT = XMMatrixTranslation(translateX_, translateY_, 0);
 
-	//auto mtx = XMMatrixIdentity();
+	auto mtx = XMMatrixIdentity();
 
 	// ç∂Ç©ÇÁïœä∑Ç™ìKópÇ≥ÇÍÇÈ
 	//auto mtx = mtxT * mtxS;
 	//auto mtx = mtxS * mtxT;
 
 	//auto mtx = mtxT * mtxR;
-	auto mtx = mtxR * mtxT;
+	//auto mtx = mtxR * mtxT;
 
 	XMStoreFloat4x4(&cb.Data.Transform, XMMatrixTranspose(mtx));
 	//DirectX::XMStoreFloat4x4(&cb.Data.Transform, translate);
