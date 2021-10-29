@@ -1,25 +1,22 @@
-cbuffer cbTransform : register(b0) { // í‚ÉƒXƒƒbƒgu0v‚ğg‚¤
+cbuffer cbTransform : register(b0) { // å¸¸ã«ã‚¹ãƒ­ãƒƒãƒˆã€Œ0ã€ã‚’ä½¿ã†
 	matrix Transform;
 };
 
 struct VS_INPUT {
-	float4 Pos : POSITION;   // ’¸“_À•W(ƒ‚ƒfƒ‹À•WŒn)
-	float4 Col : COLOR;      // ’¸“_F
+	float4 Pos : POSITION;   // é ‚ç‚¹åº§æ¨™(ãƒ¢ãƒ‡ãƒ«åº§æ¨™ç³»)
+	float4 Col : COLOR;      // é ‚ç‚¹è‰²
 };
 
 struct VS_OUTPUT {
-	float4 Pos : SV_POSITION;   // ’¸“_À•W(ƒ‚ƒfƒ‹À•WŒn)
-	float4 Col : COLOR;      // ’¸“_F
+	float4 Pos : SV_POSITION;
+	float4 Col : COLOR;
 };
 
-//float4 main( float4 pos : POSITION ) : SV_POSITION
 VS_OUTPUT main(VS_INPUT input)
 {
 	VS_OUTPUT output;
 	output.Pos = mul(input.Pos, Transform);
 	output.Col = input.Col;
-	//output.Col = float3(0.f, 1.f, 0.f);
-	//return mul(pos, Transform);
 
 	return output;
 }

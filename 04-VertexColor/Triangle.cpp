@@ -3,7 +3,7 @@
 
 Triangle::Triangle()
 {
-	// ã3
+	// âˆš3
 	auto sqrt3 = sqrtf(3);
 	Vertices[0] = { 0.f, sqrt3 / 3.f, 0.f };
 	Vertices[1] = { 0.5f, -sqrt3 / 6.f, 0.f };
@@ -61,18 +61,18 @@ void Triangle::Draw(Renderer& renderer)
 
 void Triangle::updateTransform()
 {
-	// •½sˆÚ“®
+	// å¹³è¡Œç§»å‹•
 	//translateX_ += 0.0001f;
 	//if (translateX_ >= 1.f) translateX_ = -1.f;
 	//translateY_ += 0.0001f;
 	//if (translateY_ >= 1.f) translateY_ = -1.f;
 	translateX_ = 0.5f;
 
-	// ‰ñ“]
+	// å›žè»¢
 	//angle_ += XM_PI / 60000.f;
 	angle_ = XM_PI / 2.f;
 
-	// ƒXƒP[ƒ‹
+	// ã‚¹ã‚±ãƒ¼ãƒ«
 	//scale_ += 0.0001f;
 	//if (scale_ >= 2.0f) scale_ = 0.5f;
 	scale_ = 2.f;
@@ -80,7 +80,7 @@ void Triangle::updateTransform()
 
 void Triangle::setupTransform(Renderer& renderer)
 {
-	// WorldMatrix‚ð’è”ƒoƒbƒtƒ@‚ÉÝ’è
+	// WorldMatrixã‚’å®šæ•°ãƒãƒƒãƒ•ã‚¡ã«è¨­å®š
 
 	auto& cb = renderer.GetRenderParam().CbTransformSet;
 
@@ -94,7 +94,7 @@ void Triangle::setupTransform(Renderer& renderer)
 
 	auto mtx = XMMatrixIdentity();
 
-	// ¶‚©‚ç•ÏŠ·‚ª“K—p‚³‚ê‚é
+	// å·¦ã‹ã‚‰å¤‰æ›ãŒé©ç”¨ã•ã‚Œã‚‹
 	//auto mtx = mtxT * mtxS;
 	//auto mtx = mtxS * mtxT;
 
@@ -105,7 +105,7 @@ void Triangle::setupTransform(Renderer& renderer)
 	//DirectX::XMStoreFloat4x4(&cb.Data.Transform, translate);
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	auto pDeviceContext = renderer.GetDeviceContext();
-	// CBuffer‚É‚Ð‚à‚Ã‚­ƒn[ƒhƒEƒFƒAƒŠƒ\[ƒXƒ}ƒbƒvŽæ“¾iƒƒbƒN‚µ‚ÄŽæ“¾j
+	// CBufferã«ã²ã‚‚ã¥ããƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ãƒªã‚½ãƒ¼ã‚¹ãƒžãƒƒãƒ—å–å¾—ï¼ˆãƒ­ãƒƒã‚¯ã—ã¦å–å¾—ï¼‰
 	HRESULT hr = pDeviceContext->Map(
 		cb.pBuffer,
 		0,
@@ -117,7 +117,7 @@ void Triangle::setupTransform(Renderer& renderer)
 		return;
 	}
 	CopyMemory(mappedResource.pData, &cb.Data, sizeof(cb.Data));
-	// ƒ}ƒbƒv‰ðœ
+	// ãƒžãƒƒãƒ—è§£é™¤
 	pDeviceContext->Unmap(cb.pBuffer, 0);
 	pDeviceContext->VSSetConstantBuffers(0, 1, &cb.pBuffer);
 }

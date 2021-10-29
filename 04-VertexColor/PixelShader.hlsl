@@ -1,13 +1,9 @@
 struct PS_INPUT {
-	float4 Pos : SV_POSITION;   // ’¸“_À•W(ƒ‚ƒfƒ‹À•WŒn)
-	float4 Col : COLOR;      // ’¸“_F
+	float4 Pos : SV_POSITION;   // é ‚ç‚¹åº§æ¨™(ãƒ¢ãƒ‡ãƒ«åº§æ¨™ç³»)
+	float4 Col : COLOR;      // é ‚ç‚¹è‰²
 };
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
 	return input.Col;
-
-	//return float4(input.Col.xyz, 0.1f);
-	//return float4(input.Pos.xy, 1.0f, 1.0f);
-	//return float4(1.0f, 1.0f, 1.0f, 1.0f);
 }
