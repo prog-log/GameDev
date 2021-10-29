@@ -1,4 +1,4 @@
-cbuffer cbTransform : register(b0) { // í‚ÉƒXƒƒbƒgu0v‚ğg‚¤
+cbuffer cbTransform : register(b0) { // å¸¸ã«ã‚¹ãƒ­ãƒƒãƒˆã€Œ0ã€ã‚’ä½¿ã†
 	matrix Transform;
 };
 

@@ -26,22 +26,22 @@ private:
 	bool initBackBuffer();
 
 private:
-	//! ‹@”\ƒŒƒxƒ‹‚Ì”z—ñ
+	//! æ©Ÿèƒ½ãƒ¬ãƒ™ãƒ«ã®é…åˆ—
 	static const UINT	FEATURE_LEVELS_NUM = 4;
 	D3D_FEATURE_LEVEL	pFeatureLevels_[FEATURE_LEVELS_NUM] = {};
-	//! ƒfƒoƒCƒXì¬‚É•Ô‚³‚ê‚é‹@”\ƒŒƒxƒ‹
+	//! ãƒ‡ãƒã‚¤ã‚¹ä½œæˆæ™‚ã«è¿”ã•ã‚Œã‚‹æ©Ÿèƒ½ãƒ¬ãƒ™ãƒ«
 	D3D_FEATURE_LEVEL	featureLevelsSupported_;
 
-	//! ƒfƒoƒCƒX
+	//! ãƒ‡ãƒã‚¤ã‚¹
 	ID3D11Device*			pD3DDevice_ = nullptr;
-	//! ƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg
+	//! ãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
 	ID3D11DeviceContext*	pImmediateContext_ = nullptr;
-	//! ƒXƒƒbƒvEƒ`ƒFƒCƒ“
+	//! ã‚¹ãƒ¯ãƒƒãƒ—ãƒ»ãƒã‚§ã‚¤ãƒ³
 	IDXGISwapChain*			pSwapChain_ = nullptr;
 
-	//! •`‰æƒ^[ƒQƒbƒgEƒrƒ…[
+	//! æç”»ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ»ãƒ“ãƒ¥ãƒ¼
 	ID3D11RenderTargetView*	pRenderTargetView_ = nullptr;
-	//! ƒrƒ…[ƒ|[ƒg
+	//! ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆ
 	D3D11_VIEWPORT			viewPort_[1];
 
 	UINT	backBufferNum_ = 3;

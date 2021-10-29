@@ -17,7 +17,7 @@ Renderer::~Renderer()
 
 bool Renderer::Initialize(HWND hWindow)
 {
-	// Window‚É‡‚í‚¹‚ÄƒXƒNƒŠ[ƒ“ƒTƒCƒY‰Šú‰»
+	// Windowã«åˆã‚ã›ã¦ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚µã‚¤ã‚ºåˆæœŸåŒ–
 	RECT rc;
 	GetClientRect(hWindow, &rc);
 	screenWidth_ = rc.right - rc.left;
@@ -42,11 +42,11 @@ void Renderer::Terminate()
 
 	renderParam_.Terminate(*this);
 
-	// ƒfƒoƒCƒXEƒXƒe[ƒg‚ÌƒNƒŠƒA
+	// ãƒ‡ãƒã‚¤ã‚¹ãƒ»ã‚¹ãƒ†ãƒ¼ãƒˆã®ã‚¯ãƒªã‚¢
 	if(pImmediateContext_)
 		pImmediateContext_->ClearState();
 
-	// ƒXƒƒbƒv ƒ`ƒFƒCƒ“‚ğƒEƒCƒ“ƒhƒE ƒ‚[ƒh‚É‚·‚é
+	// ã‚¹ãƒ¯ãƒƒãƒ— ãƒã‚§ã‚¤ãƒ³ã‚’ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ ãƒ¢ãƒ¼ãƒ‰ã«ã™ã‚‹
 	if (pSwapChain_)
 		pSwapChain_->SetFullscreenState(FALSE, NULL);
 
@@ -78,7 +78,7 @@ void Renderer::Draw()
 
 void Renderer::Swap()
 {
-	// ƒoƒbƒNƒoƒbƒtƒ@‚Ì•\¦i‰æ–Ê‚ğ‚·‚®‚ÉXVj
+	// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®è¡¨ç¤ºï¼ˆç”»é¢ã‚’ã™ãã«æ›´æ–°ï¼‰
 	HRESULT hr = pSwapChain_->Present(0, 0);
 	if (FAILED(hr)) {
 		//TRACE("Swap failed(%0x08x)\n", hr);
@@ -92,7 +92,7 @@ bool Renderer::CompileShader(const WCHAR* vsPath, const WCHAR* psPath, Shader& o
 	ID3DBlob* errBlob = nullptr;
 	auto pDevice = GetDevice();
 
-	// ƒVƒF[ƒ_[ƒRƒ“ƒpƒCƒ‹
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
 	auto hr = D3DCompileFromFile(
 		vsPath,
 		nullptr,
@@ -106,7 +106,7 @@ bool Renderer::CompileShader(const WCHAR* vsPath, const WCHAR* psPath, Shader& o
 	);
 	if (FAILED(hr)) return false;
 
-	// ’¸“_ƒVƒF[ƒ_ì¬(ƒVƒF[ƒ_ƒIƒuƒWƒFƒNƒgì¬)
+	// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ä½œæˆ(ã‚·ã‚§ãƒ¼ãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ)
 	ID3D11VertexShader* pVertexShader = nullptr;
 	hr = pDevice->CreateVertexShader(
 		vsBlob->GetBufferPointer(),
@@ -116,7 +116,7 @@ bool Renderer::CompileShader(const WCHAR* vsPath, const WCHAR* psPath, Shader& o
 	);
 	if (FAILED(hr)) return false;
 
-	// “ü—ÍƒŒƒCƒAƒEƒgƒIƒuƒWƒFƒNƒgì¬
+	// å…¥åŠ›ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ
 	ID3D11InputLayout* pInputLayout = nullptr;
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -130,7 +130,7 @@ bool Renderer::CompileShader(const WCHAR* vsPath, const WCHAR* psPath, Shader& o
 	);
 	if (FAILED(hr)) return false;
 
-	// ƒsƒNƒZƒ‹ƒVƒF[ƒ_[ì¬
+	// ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ä½œæˆ
 	ID3DBlob* psBlob = nullptr;
 	hr = D3DCompileFromFile(
 		psPath,
@@ -162,23 +162,23 @@ bool Renderer::CompileShader(const WCHAR* vsPath, const WCHAR* psPath, Shader& o
 
 bool Renderer::initDeviceAndSwapChain(HWND hWindow)
 {
-	// ƒfƒoƒCƒX‚ÆƒXƒƒbƒvEƒ`ƒFƒCƒ“ì¬
+	// ãƒ‡ãƒã‚¤ã‚¹ã¨ã‚¹ãƒ¯ãƒƒãƒ—ãƒ»ãƒã‚§ã‚¤ãƒ³ä½œæˆ
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
-	sd.BufferCount = backBufferNum_;		// ƒoƒbƒNƒoƒbƒtƒ@‚Ì”
-	sd.BufferDesc.Width = screenWidth_;	// ƒoƒbƒNƒoƒbƒtƒ@‚Ì•
-	sd.BufferDesc.Height = screenHeight_;	// ƒoƒbƒNƒoƒbƒtƒ@‚Ì‚‚³
-	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	// ƒtƒH[ƒ}ƒbƒg
-	sd.BufferDesc.RefreshRate.Numerator = 60;	// ƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒgi•ª•êj
-	sd.BufferDesc.RefreshRate.Denominator = 1;	// ƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒgi•ªqj
+	sd.BufferCount = backBufferNum_;		// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®æ•°
+	sd.BufferDesc.Width = screenWidth_;	// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®å¹…
+	sd.BufferDesc.Height = screenHeight_;	// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®é«˜ã•
+	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	// ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+	sd.BufferDesc.RefreshRate.Numerator = 60;	// ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆï¼ˆåˆ†æ¯ï¼‰
+	sd.BufferDesc.RefreshRate.Denominator = 1;	// ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆï¼ˆåˆ†å­ï¼‰
 	sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE;
 	sd.BufferDesc.Scaling = DXGI_MODE_SCALING_CENTERED;
-	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;	// ƒoƒbƒNƒoƒbƒtƒ@‚Ìg—p–@
-	sd.OutputWindow = hWindow;		// ŠÖ˜A•t‚¯‚éƒEƒBƒ“ƒhƒE
-	sd.SampleDesc.Count = 1;			// ƒ}ƒ‹ƒ`ƒTƒ“ƒvƒ‹iƒAƒ“ƒ`ƒGƒCƒŠƒAƒXj‚Ì”
-	sd.SampleDesc.Quality = 0;			// ƒ}ƒ‹ƒ`ƒTƒ“ƒvƒ‹iƒAƒ“ƒ`ƒGƒCƒŠƒAƒXj‚ÌƒNƒIƒŠƒeƒB
-	sd.Windowed = TRUE;		// ƒEƒBƒ“ƒhƒEƒ‚[ƒhiTRUE‚ªƒEƒBƒ“ƒhƒEƒ‚[ƒhj
-	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;		// ƒ‚[ƒh©“®Ø‚è‘Ö‚¦
+	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;	// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ³•
+	sd.OutputWindow = hWindow;		// é–¢é€£ä»˜ã‘ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
+	sd.SampleDesc.Count = 1;			// ãƒãƒ«ãƒã‚µãƒ³ãƒ—ãƒ«ï¼ˆã‚¢ãƒ³ãƒã‚¨ã‚¤ãƒªã‚¢ã‚¹ï¼‰ã®æ•°
+	sd.SampleDesc.Quality = 0;			// ãƒãƒ«ãƒã‚µãƒ³ãƒ—ãƒ«ï¼ˆã‚¢ãƒ³ãƒã‚¨ã‚¤ãƒªã‚¢ã‚¹ï¼‰ã®ã‚¯ã‚ªãƒªãƒ†ã‚£
+	sd.Windowed = TRUE;		// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ï¼ˆTRUEãŒã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ï¼‰
+	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;		// ãƒ¢ãƒ¼ãƒ‰è‡ªå‹•åˆ‡ã‚Šæ›¿ãˆ
 
 #if defined(DEBUG) || defined(_DEBUG)
 	UINT createDeviceFlags = D3D11_CREATE_DEVICE_DEBUG;
@@ -194,7 +194,7 @@ bool Renderer::initDeviceAndSwapChain(HWND hWindow)
 
 	HRESULT hr;
 	for (auto type : DriverTypes) {
-		// ƒn[ƒhƒEƒFƒAƒfƒoƒCƒX‚ğì¬
+		// ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ãƒ‡ãƒã‚¤ã‚¹ã‚’ä½œæˆ
 		hr = D3D11CreateDeviceAndSwapChain(
 			NULL, type, NULL, createDeviceFlags,
 			pFeatureLevels_, FEATURE_LEVELS_NUM, D3D11_SDK_VERSION, &sd,
@@ -212,39 +212,39 @@ bool Renderer::initBackBuffer()
 {
 	HRESULT hr;
 
-	// ƒXƒƒbƒvEƒ`ƒFƒCƒ“‚©‚çÅ‰‚ÌƒoƒbƒNEƒoƒbƒtƒ@‚ğæ“¾‚·‚é
-	ID3D11Texture2D *pBackBuffer;  // ƒoƒbƒtƒ@‚ÌƒAƒNƒZƒX‚Ég‚¤ƒCƒ“ƒ^[ƒtƒFƒCƒX
+	// ã‚¹ãƒ¯ãƒƒãƒ—ãƒ»ãƒã‚§ã‚¤ãƒ³ã‹ã‚‰æœ€åˆã®ãƒãƒƒã‚¯ãƒ»ãƒãƒƒãƒ•ã‚¡ã‚’å–å¾—ã™ã‚‹
+	ID3D11Texture2D *pBackBuffer;  // ãƒãƒƒãƒ•ã‚¡ã®ã‚¢ã‚¯ã‚»ã‚¹ã«ä½¿ã†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 	hr = pSwapChain_->GetBuffer(
-		0,                         // ƒoƒbƒNEƒoƒbƒtƒ@‚Ì”Ô†
-		__uuidof(ID3D11Texture2D), // ƒoƒbƒtƒ@‚ÉƒAƒNƒZƒX‚·‚éƒCƒ“ƒ^[ƒtƒFƒCƒX
-		(LPVOID*)&pBackBuffer);    // ƒoƒbƒtƒ@‚ğó‚¯æ‚é•Ï”
+		0,                         // ãƒãƒƒã‚¯ãƒ»ãƒãƒƒãƒ•ã‚¡ã®ç•ªå·
+		__uuidof(ID3D11Texture2D), // ãƒãƒƒãƒ•ã‚¡ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
+		(LPVOID*)&pBackBuffer);    // ãƒãƒƒãƒ•ã‚¡ã‚’å—ã‘å–ã‚‹å¤‰æ•°
 	if (FAILED(hr)) {
-		//TRACE("InitBackBuffer g_pSwapChain->GetBuffer(%0x08x)\n", hr);  // ¸”s
+		//TRACE("InitBackBuffer g_pSwapChain->GetBuffer(%0x08x)\n", hr);  // å¤±æ•—
 		return false;
 	}
 
-	// ƒoƒbƒNEƒoƒbƒtƒ@‚Ìî•ñ
+	// ãƒãƒƒã‚¯ãƒ»ãƒãƒƒãƒ•ã‚¡ã®æƒ…å ±
 	D3D11_TEXTURE2D_DESC descBackBuffer;
 	pBackBuffer->GetDesc(&descBackBuffer);
 
-	// ƒoƒbƒNEƒoƒbƒtƒ@‚Ì•`‰æƒ^[ƒQƒbƒgEƒrƒ…[‚ğì‚é
+	// ãƒãƒƒã‚¯ãƒ»ãƒãƒƒãƒ•ã‚¡ã®æç”»ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ»ãƒ“ãƒ¥ãƒ¼ã‚’ä½œã‚‹
 	hr = pD3DDevice_->CreateRenderTargetView(
-		pBackBuffer,           // ƒrƒ…[‚ÅƒAƒNƒZƒX‚·‚éƒŠƒ\[ƒX
-		NULL,                  // •`‰æƒ^[ƒQƒbƒgEƒrƒ…[‚Ì’è‹`
-		&pRenderTargetView_); // •`‰æƒ^[ƒQƒbƒgEƒrƒ…[‚ğó‚¯æ‚é•Ï”
-	DX_SAFE_RELEASE(pBackBuffer);  // ˆÈ~AƒoƒbƒNEƒoƒbƒtƒ@‚Í’¼Úg‚í‚È‚¢‚Ì‚Å‰ğ•ú
+		pBackBuffer,           // ãƒ“ãƒ¥ãƒ¼ã§ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ãƒªã‚½ãƒ¼ã‚¹
+		NULL,                  // æç”»ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ»ãƒ“ãƒ¥ãƒ¼ã®å®šç¾©
+		&pRenderTargetView_); // æç”»ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ»ãƒ“ãƒ¥ãƒ¼ã‚’å—ã‘å–ã‚‹å¤‰æ•°
+	DX_SAFE_RELEASE(pBackBuffer);  // ä»¥é™ã€ãƒãƒƒã‚¯ãƒ»ãƒãƒƒãƒ•ã‚¡ã¯ç›´æ¥ä½¿ã‚ãªã„ã®ã§è§£æ”¾
 	if (FAILED(hr)) {
-		//TRACE("InitBackBuffer g_pD3DDevice->CreateRenderTargetView(%0x08x)\n", hr);  // ¸”s
+		//TRACE("InitBackBuffer g_pD3DDevice->CreateRenderTargetView(%0x08x)\n", hr);  // å¤±æ•—
 		return false;
 	}
 
-	// ƒrƒ…[ƒ|[ƒg‚Ìİ’è
-	viewPort_[0].TopLeftX = 0.0f;    // ƒrƒ…[ƒ|[ƒg—Ìˆæ‚Ì¶ãXÀ•WB
-	viewPort_[0].TopLeftY = 0.0f;    // ƒrƒ…[ƒ|[ƒg—Ìˆæ‚Ì¶ãYÀ•WB
-	viewPort_[0].Width    = static_cast<float>(screenWidth_);  // ƒrƒ…[ƒ|[ƒg—Ìˆæ‚Ì•
-	viewPort_[0].Height   = static_cast<float>(screenHeight_);  // ƒrƒ…[ƒ|[ƒg—Ìˆæ‚Ì‚‚³
-	viewPort_[0].MinDepth = 0.0f; // ƒrƒ…[ƒ|[ƒg—Ìˆæ‚Ì[“x’l‚ÌÅ¬’l
-	viewPort_[0].MaxDepth = 1.0f; // ƒrƒ…[ƒ|[ƒg—Ìˆæ‚Ì[“x’l‚ÌÅ‘å’l
+	// ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®è¨­å®š
+	viewPort_[0].TopLeftX = 0.0f;    // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆé ˜åŸŸã®å·¦ä¸ŠXåº§æ¨™ã€‚
+	viewPort_[0].TopLeftY = 0.0f;    // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆé ˜åŸŸã®å·¦ä¸ŠYåº§æ¨™ã€‚
+	viewPort_[0].Width    = static_cast<float>(screenWidth_);  // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆé ˜åŸŸã®å¹…
+	viewPort_[0].Height   = static_cast<float>(screenHeight_);  // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆé ˜åŸŸã®é«˜ã•
+	viewPort_[0].MinDepth = 0.0f; // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆé ˜åŸŸã®æ·±åº¦å€¤ã®æœ€å°å€¤
+	viewPort_[0].MaxDepth = 1.0f; // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆé ˜åŸŸã®æ·±åº¦å€¤ã®æœ€å¤§å€¤
 	pImmediateContext_->RSSetViewports(1, &viewPort_[0]);
 
 	return true;

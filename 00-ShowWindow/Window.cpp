@@ -16,7 +16,7 @@ Window::~Window()
 bool Window::Initialize(HINSTANCE hInst)
 {
 	const int IDI_ICON1 = 102;
-	// ƒEƒCƒ“ƒhƒE ƒNƒ‰ƒX‚Ì“o˜^
+	// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ ã‚¯ãƒ©ã‚¹ã®ç™»éŒ²
 	wc_.style			= CS_HREDRAW | CS_VREDRAW;
 	wc_.lpfnWndProc		= (WNDPROC)Window::MainWndProc;
 	wc_.cbClsExtra		= 0;
@@ -32,7 +32,7 @@ bool Window::Initialize(HINSTANCE hInst)
 		return false;
 	}
 
-	// ƒƒCƒ“ ƒEƒCƒ“ƒhƒEì¬
+	// ãƒ¡ã‚¤ãƒ³ ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ä½œæˆ
 	RECT rect;
 	rect.top	= 0;
 	rect.left	= 0;
@@ -49,7 +49,7 @@ bool Window::Initialize(HINSTANCE hInst)
 		return false;
 	}
 
-	// ƒEƒCƒ“ƒhƒE•\¦
+	// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦è¡¨ç¤º
 	ShowWindow(hWindow_, SW_SHOWNORMAL);
 	UpdateWindow(hWindow_);
 
@@ -60,7 +60,7 @@ bool Window::Terminate()
 {
 	DestroyWindow(GetWindowHandle());
 
-	// ƒEƒCƒ“ƒhƒE ƒNƒ‰ƒX‚Ì“o˜^‰ğœ
+	// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ ã‚¯ãƒ©ã‚¹ã®ç™»éŒ²è§£é™¤
 	UnregisterClass(wc_.lpszClassName, wc_.hInstance);
 	hWindow_ = nullptr;
 	return true;
@@ -68,11 +68,11 @@ bool Window::Terminate()
 
 bool Window::MessageLoop()
 {
-	// WindowsƒƒbƒZ[ƒWƒ‹[ƒvˆ—
+	// Windowsãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ«ãƒ¼ãƒ—å‡¦ç†
 	if (PeekMessage(&msg_, nullptr, 0, 0, PM_REMOVE)) { 
 		TranslateMessage(&msg_); DispatchMessage(&msg_); 
 	} 
-	// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªI‚í‚é‚Æ‚«‚Émessage‚ªWM_QUIT‚É‚È‚é 
+	// ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã‚‹ã¨ãã«messageãŒWM_QUITã«ãªã‚‹ 
 	if (msg_.message == WM_QUIT) { 
 		return false; 
 	}
@@ -83,13 +83,13 @@ bool Window::MessageLoop()
 {
 	switch (msg) {
 	case WM_DESTROY:
-		// ƒAƒvƒŠI—¹
+		// ã‚¢ãƒ—ãƒªçµ‚äº†
 		PostQuitMessage(0);
 		return 0;
 	default:
 		break;
 	}
-	// ƒfƒtƒHƒ‹ƒgˆ—i•K{j
+	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå‡¦ç†ï¼ˆå¿…é ˆï¼‰
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 

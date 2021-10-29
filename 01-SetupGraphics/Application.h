@@ -11,7 +11,7 @@ public:
 	void Terminate();
 
 private:
-	// ƒAƒvƒŠ‚ÌƒƒCƒ“ƒ‹[ƒv
+	// ã‚¢ãƒ—ãƒªã®ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 	bool gameLoop();
 
 private:
