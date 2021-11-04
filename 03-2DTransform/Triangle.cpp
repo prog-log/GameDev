@@ -1,4 +1,4 @@
-#include "Triangle.h"
+﻿#include "Triangle.h"
 #include "Renderer.h"
 
 Triangle::Triangle()

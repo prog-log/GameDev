@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03-2DTransform", "03-2DTran
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04-VertexColor", "04-VertexColor\04-VertexColor.vcxproj", "{23329655-C63E-450D-B322-46FC88CB352D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05-3DTransform", "05-3DTransform\05-3DTransform.vcxproj", "{884A2C55-6B22-42F6-9B6C-708C56B4174F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{23329655-C63E-450D-B322-46FC88CB352D}.Release|x64.Build.0 = Release|x64
 		{23329655-C63E-450D-B322-46FC88CB352D}.Release|x86.ActiveCfg = Release|Win32
 		{23329655-C63E-450D-B322-46FC88CB352D}.Release|x86.Build.0 = Release|Win32
+		{884A2C55-6B22-42F6-9B6C-708C56B4174F}.Debug|x64.ActiveCfg = Debug|x64
+		{884A2C55-6B22-42F6-9B6C-708C56B4174F}.Debug|x64.Build.0 = Debug|x64
+		{884A2C55-6B22-42F6-9B6C-708C56B4174F}.Debug|x86.ActiveCfg = Debug|Win32
+		{884A2C55-6B22-42F6-9B6C-708C56B4174F}.Debug|x86.Build.0 = Debug|Win32
+		{884A2C55-6B22-42F6-9B6C-708C56B4174F}.Release|x64.ActiveCfg = Release|x64
+		{884A2C55-6B22-42F6-9B6C-708C56B4174F}.Release|x64.Build.0 = Release|x64
+		{884A2C55-6B22-42F6-9B6C-708C56B4174F}.Release|x86.ActiveCfg = Release|Win32
+		{884A2C55-6B22-42F6-9B6C-708C56B4174F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

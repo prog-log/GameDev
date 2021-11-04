@@ -1,4 +1,4 @@
-#include "RenderParam.h"
+﻿#include "RenderParam.h"
 #include "Renderer.h"
 
 bool RenderParam::Initialize(Renderer& renderer)

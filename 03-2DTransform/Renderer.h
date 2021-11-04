@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Shader.h"
 #include "Triangle.h"
 #include "RenderParam.h"
