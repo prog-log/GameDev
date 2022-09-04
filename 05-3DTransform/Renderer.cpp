@@ -3,6 +3,9 @@
 #pragma comment(lib, "d3dcompiler.lib")
 
 Renderer::Renderer()
+	: nearClipDist_(0.1f)
+	, farClipDist_(1000.f)
+	, fov_(XMConvertToRadians(30.f))
 {
 	pFeatureLevels_[0] = D3D_FEATURE_LEVEL_11_1;
 	pFeatureLevels_[1] = D3D_FEATURE_LEVEL_11_0;
@@ -31,15 +34,13 @@ bool Renderer::Initialize(HWND hWindow)
 
 	renderParam_.Initialize(*this);
 
-	sampleTriangle_.CreateVertexBuffer(*this);
+	setupProjectionTransform();
 
 	return true;
 }
 
 void Renderer::Terminate()
 {
-	sampleTriangle_.DestroyVertexBuffer();
-
 	renderParam_.Terminate(*this);
 
 	// デバイス・ステートのクリア
@@ -77,8 +78,6 @@ void Renderer::Draw()
 	pImmediateContext_->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	pImmediateContext_->VSSetShader(defaultShader_.pVertexShader, nullptr, 0);
 	pImmediateContext_->PSSetShader(defaultShader_.pPixelShader, nullptr, 0);
-
-	sampleTriangle_.Draw(*this);
 }
 
 void Renderer::Swap()
@@ -162,6 +161,34 @@ bool Renderer::CompileShader(const WCHAR* vsPath, const WCHAR* psPath, Shader& o
 	outShader.pVertexShader = pVertexShader;
 	outShader.pPixelShader = pPixelShader;
 	outShader.pInputLayout = pInputLayout;
+
+	return true;
+}
+
+bool Renderer::SetupViewTransform(const XMMATRIX& viewMat)
+{
+	auto& cb = GetRenderParam().CbViewSet;
+	XMStoreFloat4x4(&cb.Data.View, XMMatrixTranspose(viewMat));
+
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	auto pDeviceContext = GetDeviceContext();
+	// CBufferにひもづくハードウェアリソースマップ取得（ロックして取得）
+	HRESULT hr = pDeviceContext->Map(
+		cb.pBuffer,
+		0,
+		D3D11_MAP_WRITE_DISCARD,
+		0,
+		&mappedResource);
+	if (FAILED(hr)) {
+		//DXTRACE_ERR(L"DrawSceneGraph failed", hr);
+		return false;
+	}
+	CopyMemory(mappedResource.pData, &cb.Data, sizeof(cb.Data));
+	// マップ解除
+	pDeviceContext->Unmap(cb.pBuffer, 0);
+
+	// VSにViewMatrixをセット
+	pDeviceContext->VSSetConstantBuffers(1, 1, &cb.pBuffer);
 
 	return true;
 }
@@ -271,6 +298,44 @@ bool Renderer::initBackBuffer()
 	viewPort_[0].MinDepth = 0.0f; // ビューポート領域の深度値の最小値
 	viewPort_[0].MaxDepth = 1.0f; // ビューポート領域の深度値の最大値
 	pImmediateContext_->RSSetViewports(1, &viewPort_[0]);
+
+	return true;
+}
+
+/*
+ *	透視投影行列を設定
+ */
+bool Renderer::setupProjectionTransform()
+{
+	XMMATRIX mat = XMMatrixPerspectiveFovLH(
+		fov_,
+		static_cast<float>(screenWidth_) / static_cast<float>(screenHeight_),	// アスペクト比
+		nearClipDist_,
+		farClipDist_);
+	mat = XMMatrixTranspose(mat);
+
+	auto& cb = GetRenderParam().CbProjectionSet;
+	XMStoreFloat4x4(&cb.Data.Projection, mat);
+
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	auto pDeviceContext = GetDeviceContext();
+	// CBufferにひもづくハードウェアリソースマップ取得（ロックして取得）
+	HRESULT hr = pDeviceContext->Map(
+		cb.pBuffer,
+		0,
+		D3D11_MAP_WRITE_DISCARD,
+		0,
+		&mappedResource);
+	if (FAILED(hr)) {
+		//DXTRACE_ERR(L"DrawSceneGraph failed", hr);
+		return false;
+	}
+	CopyMemory(mappedResource.pData, &cb.Data, sizeof(cb.Data));
+	// マップ解除
+	pDeviceContext->Unmap(cb.pBuffer, 0);
+
+	// VSにProjectionMatrixをセット(ここで1度セットして以後不変)
+	pDeviceContext->VSSetConstantBuffers(2, 1, &cb.pBuffer);
 
 	return true;
 }

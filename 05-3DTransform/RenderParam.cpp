@@ -12,6 +12,8 @@ bool RenderParam::Initialize(Renderer& renderer)
 void RenderParam::Terminate(Renderer& renderer)
 {
 	DX_SAFE_RELEASE(CbTransformSet.pBuffer);
+	DX_SAFE_RELEASE(CbViewSet.pBuffer);
+	DX_SAFE_RELEASE(CbProjectionSet.pBuffer);
 }
 
 bool RenderParam::initConstantBuffer(Renderer& renderer)
@@ -24,12 +26,29 @@ bool RenderParam::initConstantBuffer(Renderer& renderer)
 	cBufferDesc.MiscFlags = 0;
 	cBufferDesc.StructureByteStride = 0;
 
-	// 定数バッファ①の作成
+	// Transform(ワールド変換)用定数バッファの作成
 	cBufferDesc.ByteWidth = sizeof(CbTransform);	// バッファ・サイズ
 	auto hr = renderer.GetDevice()->CreateBuffer(&cBufferDesc, NULL, &CbTransformSet.pBuffer);
 	if (FAILED(hr)) {
 		// DXTRACE_ERR(L"InitDirect3D g_pD3DDevice->CreateBuffer", hr);
 		return false;
 	}
+
+	// View変換用定数バッファの作成
+	cBufferDesc.ByteWidth = sizeof(CbView);	// バッファ・サイズ
+	hr = renderer.GetDevice()->CreateBuffer(&cBufferDesc, NULL, &CbViewSet.pBuffer);
+	if (FAILED(hr)) {
+		// DXTRACE_ERR(L"InitDirect3D g_pD3DDevice->CreateBuffer", hr);
+		return false;
+	}
+
+	// 投影変換用定数バッファの作成
+	cBufferDesc.ByteWidth = sizeof(CbProjection);	// バッファ・サイズ
+	hr = renderer.GetDevice()->CreateBuffer(&cBufferDesc, NULL, &CbProjectionSet.pBuffer);
+	if (FAILED(hr)) {
+		// DXTRACE_ERR(L"InitDirect3D g_pD3DDevice->CreateBuffer", hr);
+		return false;
+	}
+
 	return true;
 }

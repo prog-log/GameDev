@@ -25,7 +25,7 @@ bool Window::Initialize(HINSTANCE hInst)
 	wc_.hCursor			= LoadCursor(NULL, IDC_ARROW);
 	wc_.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
 	wc_.lpszMenuName	= NULL;
-	wc_.lpszClassName	= L"VertexColor";
+	wc_.lpszClassName	= L"3DTransform";
 
 	if (!RegisterClass(&wc_)) {
 		return false;

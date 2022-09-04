@@ -4,6 +4,7 @@ void Application::Initialize(HINSTANCE hInst)
 {
 	window_.Initialize(hInst);
 	renderer_.Initialize(window_.GetWindowHandle());
+	sceneManager_.Initialize(renderer_);
 }
 
 void Application::Loop()
@@ -19,13 +20,18 @@ void Application::Loop()
 
 void Application::Terminate()
 {
+	sceneManager_.Terminate();
 	renderer_.Terminate();
 	window_.Terminate();
 }
 
 bool Application::gameLoop()
 {
+	sceneManager_.Update();
+
 	renderer_.Draw();
+
+	sceneManager_.Draw();
 
 	renderer_.Swap();
 

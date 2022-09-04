@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Shader.h"
-#include "Triangle.h"
 #include "RenderParam.h"
 
 class Renderer
@@ -23,9 +22,11 @@ public:
 
 	bool CompileShader(const WCHAR* vsPath, const WCHAR* psPath, Shader& outShader);
 
+	bool SetupViewTransform(const XMMATRIX& viewMat);
 private:
 	bool initDeviceAndSwapChain(HWND hWindow);
 	bool initBackBuffer();
+	bool setupProjectionTransform();
 
 private:
 	//! 機能レベルの配列
@@ -52,8 +53,11 @@ private:
 	UINT	screenWidth_ = 0;
 	UINT	screenHeight_ = 0;
 
+	float	nearClipDist_ = 0.f;
+	float	farClipDist_ = 0.f;
+	float	fov_ = 0.f;
+
 	Shader		defaultShader_;
-	Triangle	sampleTriangle_;
 
 	RenderParam	renderParam_;
 };

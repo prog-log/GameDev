@@ -9,7 +9,7 @@ Triangle::Triangle()
 	Vertices[1] = { 0.5f, -sqrt3 / 6.f, 0.f };
 	Vertices[2] = { -0.5f, -sqrt3 / 6.f, 0.f };
 
-	constexpr float ALPHA = 0.3f;
+	constexpr float ALPHA = 1.f;
 	Vertices[0].Color = { 1.f, 0.f, 0.f, ALPHA };
 	Vertices[1].Color = { 0.f, 1.f, 0.f, ALPHA };
 	Vertices[2].Color = { 0.f, 0.f, 1.f, ALPHA };
