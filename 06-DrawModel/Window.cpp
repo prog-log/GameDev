@@ -39,7 +39,7 @@ bool Window::Initialize(HINSTANCE hInst)
 	rect.bottom	= sizeWindow_.cy;
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
-	hWindow_ = CreateWindow(wc_.lpszClassName, _T("3DTransform"),
+	hWindow_ = CreateWindow(wc_.lpszClassName, _T("DrawModel"),
 			WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT, CW_USEDEFAULT,
 			rect.right - rect.left, rect.bottom - rect.top,
