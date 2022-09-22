@@ -35,6 +35,8 @@ bool Application::gameLoop()
 
 	renderer_.Swap();
 
+	Sleep(10);
+
 	return true;
 }
 
