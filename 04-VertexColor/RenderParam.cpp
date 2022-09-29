@@ -26,7 +26,7 @@ bool RenderParam::initConstantBuffer(Renderer& renderer)
 
 	// 定数バッファ①の作成
 	cBufferDesc.ByteWidth = sizeof(CbTransform);	// バッファ・サイズ
-	auto hr = renderer.GetDevice()->CreateBuffer(&cBufferDesc, NULL, &CbTransformSet.pBuffer);
+	auto hr = renderer.GetDevice()->CreateBuffer(&cBufferDesc, nullptr, &CbTransformSet.pBuffer);
 	if (FAILED(hr)) {
 		// DXTRACE_ERR(L"InitDirect3D g_pD3DDevice->CreateBuffer", hr);
 		return false;

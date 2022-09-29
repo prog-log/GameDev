@@ -2,7 +2,7 @@
 
 #include <d3d11.h>
 #pragma comment(lib, "d3d11.lib")
-#define DX_SAFE_RELEASE(x)	{ if(x) { (x)->Release(); (x)=NULL; } }
+#define DX_SAFE_RELEASE(x)	{ if(x) { (x)->Release(); (x)=nullptr; } }
 
 class Renderer
 {

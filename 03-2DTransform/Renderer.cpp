@@ -48,7 +48,7 @@ void Renderer::Terminate()
 
 	// スワップ チェインをウインドウ モードにする
 	if (pSwapChain_)
-		pSwapChain_->SetFullscreenState(FALSE, NULL);
+		pSwapChain_->SetFullscreenState(FALSE, nullptr);
 
 	DX_SAFE_RELEASE(pRenderTargetView_);
 	DX_SAFE_RELEASE(pSwapChain_);
@@ -196,7 +196,7 @@ bool Renderer::initDeviceAndSwapChain(HWND hWindow)
 	for (auto type : DriverTypes) {
 		// ハードウェアデバイスを作成
 		hr = D3D11CreateDeviceAndSwapChain(
-			NULL, type, NULL, createDeviceFlags,
+			nullptr, type, nullptr, createDeviceFlags,
 			pFeatureLevels_, FEATURE_LEVELS_NUM, D3D11_SDK_VERSION, &sd,
 			&pSwapChain_, &pD3DDevice_, &featureLevelsSupported_, &pImmediateContext_);
 		if (SUCCEEDED(hr)) {
@@ -230,7 +230,7 @@ bool Renderer::initBackBuffer()
 	// バック・バッファの描画ターゲット・ビューを作る
 	hr = pD3DDevice_->CreateRenderTargetView(
 		pBackBuffer,           // ビューでアクセスするリソース
-		NULL,                  // 描画ターゲット・ビューの定義
+		nullptr,                  // 描画ターゲット・ビューの定義
 		&pRenderTargetView_); // 描画ターゲット・ビューを受け取る変数
 	DX_SAFE_RELEASE(pBackBuffer);  // 以降、バック・バッファは直接使わないので解放
 	if (FAILED(hr)) {

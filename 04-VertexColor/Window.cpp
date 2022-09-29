@@ -76,7 +76,7 @@ bool Window::MessageLoop()
 	return true;
 }
 
-/*static*/ LRESULT CALLBACK Window::MainWndProc(HWND hWnd, UINT msg, UINT wParam, LONG lParam)
+/*static*/ LRESULT CALLBACK Window::MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg) {
 	case WM_DESTROY:
