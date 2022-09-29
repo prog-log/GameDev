@@ -13,7 +13,7 @@ public:
 
 	bool MessageLoop();
 
-	static LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, UINT wParam, LONG lParam);
+	static LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	void OnResize(UINT width, UINT height);
 

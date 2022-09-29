@@ -14,19 +14,17 @@ Window::~Window()
 
 bool Window::Initialize(HINSTANCE hInst)
 {
-	const int IDI_ICON1 = 102;
 	// ウインドウ クラスの登録
 	wc_.style			= CS_HREDRAW | CS_VREDRAW;
 	wc_.lpfnWndProc		= (WNDPROC)Window::MainWndProc;
 	wc_.cbClsExtra		= 0;
 	wc_.cbWndExtra		= 0;
 	wc_.hInstance		= hInst;
-	wc_.hIcon			= LoadIcon(hInst, (LPCTSTR)IDI_ICON1);
-	wc_.hCursor			= LoadCursor(NULL, IDC_ARROW);
-	wc_.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-	wc_.lpszMenuName	= NULL;
-	wc_.lpszClassName	= L"VertexColor";
-
+	wc_.hIcon			= LoadIcon(hInst, IDI_APPLICATION);
+	wc_.hCursor			= LoadCursor(hInst, IDC_ARROW);
+	wc_.hbrBackground	= GetSysColorBrush(COLOR_WINDOW);
+	wc_.lpszMenuName	= nullptr;
+	wc_.lpszClassName	= _T("VertexColor");
 	if (!RegisterClass(&wc_)) {
 		return false;
 	}
@@ -43,8 +41,8 @@ bool Window::Initialize(HINSTANCE hInst)
 			WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT, CW_USEDEFAULT,
 			rect.right - rect.left, rect.bottom - rect.top,
-			NULL, NULL, hInst, NULL);
-	if (hWindow_ == NULL) {
+			nullptr, nullptr, hInst, nullptr);
+	if (hWindow_ == nullptr) {
 		return false;
 	}
 
