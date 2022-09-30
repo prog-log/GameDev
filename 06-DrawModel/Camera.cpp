@@ -19,7 +19,7 @@ void Camera::Update()
 	//	eyePos_.x = -5.f;
 	//}
 
-	eyePos_.y += 0.0003f;
+	eyePos_.y += 0.03f;
 	if (eyePos_.y > 10.f) {
 		eyePos_.y = 0.f;
 	}

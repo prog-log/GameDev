@@ -53,8 +53,8 @@ void Triangle::Draw(Renderer& renderer)
 	setupTransform(renderer);
 
 	auto pDeviceContext = renderer.GetDeviceContext();
-	size_t strides[1] = { sizeof(Vertex) };
-	size_t offsets[1] = { 0 };
+	UINT strides[1] = { sizeof(Vertex) };
+	UINT offsets[1] = { 0 };
 	pDeviceContext->IASetVertexBuffers(0, 1, &VertexBuffer, strides, offsets);
 	pDeviceContext->Draw(VERTEX_NUM, 0);
 }

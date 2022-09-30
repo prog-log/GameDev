@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Camera.h"
-#include "Triangle.h"
+#include "Model.h"
 
 class SceneManager
 {
@@ -16,6 +16,6 @@ public:
 private:
 	Renderer* pRenderer_ = nullptr;
 	Camera	camera_;
-	Triangle	sampleTriangle_;
+	Model	sampleModel_;
 
 };
