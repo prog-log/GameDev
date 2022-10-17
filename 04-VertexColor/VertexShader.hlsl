@@ -3,7 +3,7 @@ cbuffer cbTransform : register(b0) { // 常にスロット「0」を使う
 };
 
 struct VS_INPUT {
-	float4 Pos : POSITION;   // 頂点座標(モデル座標系)
+	float3 Pos : POSITION;   // 頂点座標(モデル座標系)
 	float4 Col : COLOR;      // 頂点色
 };
 
@@ -15,7 +15,9 @@ struct VS_OUTPUT {
 VS_OUTPUT main(VS_INPUT input)
 {
 	VS_OUTPUT output;
-	output.Pos = mul(input.Pos, Transform);
+
+	float4 pos = float4(input.Pos, 1.0);
+	output.Pos = mul(pos, Transform);
 	output.Col = input.Col;
 
 	return output;

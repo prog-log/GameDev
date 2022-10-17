@@ -13,7 +13,7 @@ cbuffer cbProjection : register(b2) {
 };
 
 struct VS_INPUT {
-	float4 Pos : POSITION;   // 頂点座標(モデル座標系)
+	float3 Pos : POSITION;   // 頂点座標(モデル座標系)
 	float4 Col : COLOR;      // 頂点色
 };
 
@@ -34,7 +34,8 @@ VS_OUTPUT main(VS_INPUT input)
 	//output.Pos = mul(pos, View);
 
 	// ViewProjection
-	float4 pos = mul(input.Pos, Transform);
+	float4 pos = float4(input.Pos, 1.0);
+	pos = mul(pos, Transform);
 	pos = mul(pos, View);
 	output.Pos = mul(pos, Projection);
 
