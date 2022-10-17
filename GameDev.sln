@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05-3DTransform", "05-3DTran
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06-DrawModel", "06-DrawModel\06-DrawModel.vcxproj", "{2E70F6B4-4E66-42C1-8D73-0F00693E22F2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07-Lighting", "07-Lighting\07-Lighting.vcxproj", "{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -113,6 +115,18 @@ Global
 		{2E70F6B4-4E66-42C1-8D73-0F00693E22F2}.Release|x64.Build.0 = Release|x64
 		{2E70F6B4-4E66-42C1-8D73-0F00693E22F2}.Release|x86.ActiveCfg = Release|Win32
 		{2E70F6B4-4E66-42C1-8D73-0F00693E22F2}.Release|x86.Build.0 = Release|Win32
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Debug|ARM.ActiveCfg = Debug|Win32
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Debug|x64.ActiveCfg = Debug|x64
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Debug|x64.Build.0 = Debug|x64
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Debug|x86.ActiveCfg = Debug|Win32
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Debug|x86.Build.0 = Debug|Win32
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Release|ARM.ActiveCfg = Release|Win32
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Release|ARM64.ActiveCfg = Release|Win32
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Release|x64.ActiveCfg = Release|x64
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Release|x64.Build.0 = Release|x64
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Release|x86.ActiveCfg = Release|Win32
+		{B1292EB9-D014-4DE8-88A1-98DEDE4D2D98}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
